@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MusicTreeMVCWebApp.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicTreeMVCWebApp.Data
 {
@@ -17,6 +19,9 @@ namespace MusicTreeMVCWebApp.Data
         public string Address2 { get; set; } = string.Empty;
         [StringLength(255)]
         public string PostCode { get; set; } = string.Empty;
+
+        [ForeignKey("UserId")]
+        public virtual ICollection<UserAlbum> UserAlbums { get; set; }
     }
 
 
@@ -26,5 +31,11 @@ namespace MusicTreeMVCWebApp.Data
             : base(options)
         {
         }
+
+        public DbSet<Album> Album { get; set; }
+        public DbSet<AlbumTrack> AlbumTrack { get; set; }
+        public DbSet<Content> Content { get; set; }
+        public DbSet<MediaType> MediaType { get; set; }
+        public DbSet<UserAlbum> UserAlbum { get; set; }
     }
 }
